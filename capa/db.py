@@ -5,7 +5,8 @@ from sqlalchemy.ext.declarative import declarative_base
 
 #! CAMBIAR POR LOS DATOS DE SU BASE DE DATOS
 
-SQLALCHEMY_DATABASE_URL = "postgresql://USUARIO:CONTRASEÑA@localhost:5432/capa"
+#SQLALCHEMY_DATABASE_URL = "postgresql://USUARIO:CONTRASEÑA@localhost:5432/capa"
+SQLALCHEMY_DATABASE_URL = "sqlite:///./todos.db"
 
 engine = create_engine( SQLALCHEMY_DATABASE_URL )
 
