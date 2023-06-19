@@ -21,8 +21,8 @@ oauhh2_bearer = OAuth2PasswordBearer(tokenUrl='/auth/login')
 
 
 @auth_router.post('/register', response_model=CreateUserRequest, response_model_exclude=['usr_password'], status_code=status.HTTP_201_CREATED)
-def register(user: CreateUserRequest, db: db_dependency):
-  create_user(db, user) 
+async def register(user: CreateUserRequest, db: db_dependency):
+  await create_user(db, user) 
   return user
 
 @auth_router.get('/verify_email/{token}', status_code=status.HTTP_202_ACCEPTED)
