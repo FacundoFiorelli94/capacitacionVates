@@ -1,8 +1,8 @@
-from fastapi import APIRouter
 from db import get_db
+from fastapi import APIRouter
+from fastapi_crudrouter import SQLAlchemyCRUDRouter
 from models.user import UserModel
 from schemas.auth.user import CreateUserRequest, UserOutPut
-from fastapi_crudrouter import SQLAlchemyCRUDRouter
 
 user_router = SQLAlchemyCRUDRouter(
     schema=UserOutPut,
