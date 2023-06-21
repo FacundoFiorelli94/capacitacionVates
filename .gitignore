@@ -1,2 +1,4 @@
 envCapa/
 venv/
+.env
+envV/
