@@ -1,4 +1,4 @@
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, MetaData
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
 from dotenv.main import load_dotenv
@@ -24,6 +24,8 @@ engine = create_engine( SQLALCHEMY_DATABASE_URL )
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
+
+meta = MetaData();
 
 def create_tables():
   Base.metadata.create_all(bind=engine)

@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from db import create_tables
-from routers.auth import auth_router
+from routes.auth import auth_router
 
 app = FastAPI()
 

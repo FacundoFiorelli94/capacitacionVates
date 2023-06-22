@@ -2,6 +2,7 @@ from datetime import timedelta
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from pydantic.typing import Annotated
+from services.auth import verify_usr_email
 from services.auth import create_access_token, get_current_user
 from db import get_db
 from schemas.auth.Token import Token
@@ -26,9 +27,10 @@ async def register(user: CreateUserRequest, db: db_dependency):
   return user
 
 @auth_router.get('/verify_email/{token}', status_code=status.HTTP_202_ACCEPTED)
-def verify_email(token: str):
-  pass
-
+def verify_email(token: str, db: db_dependency):
+  user = verify_usr_email(token, db)
+  return user
+  
 @auth_router.post('/login', response_model=Token, status_code=status.HTTP_200_OK)
 def login(form_data: Annotated[OAuth2PasswordRequestForm, Depends()], db: db_dependency, response: Response):
   user = authenticate_user(form_data.username, form_data.password, db  )
