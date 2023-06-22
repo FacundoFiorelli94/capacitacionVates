@@ -3,6 +3,7 @@ from urllib.parse import urlencode
 from fastapi import HTTPException, status, Depends
 from schemas.auth.user import CreateUserRequest
 from sqlalchemy.orm import Session
+from sqlalchemy import update
 from models.user import UserModel
 from utils.utils import get_password_hash, verify_password
 from jose import jwt, JWTError
@@ -31,7 +32,7 @@ async def create_user(db: Session, user: CreateUserRequest):
   db.refresh(db_user)
   
   token = create_access_token(
-      db_user.usr_email, db_user.usr_id, timedelta(minutes=5)
+      db_user.usr_email, db_user.usr_id, timedelta(minutes=25)
   )
   
   await send_email(token, user.usr_email)
@@ -122,8 +123,10 @@ def verify_usr_email(token: str, db: Session):
         detail="Usuario no encontrado",
       )
     
-    user_db.is_enabled = True
+    user_update = ( update(UserModel).where(UserModel.usr_id == usr_id).values(usr_enabled=True) )
+    db.execute(user_update)
     db.commit()
+    db.refresh(user_db) 
     return user_db
   except JWTError:
     raise HTTPException(
