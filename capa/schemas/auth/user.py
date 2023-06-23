@@ -1,23 +1,12 @@
-# from capa.models.country import CountryModel
-# from capa.models.language import LanguageModel
+
 from pydantic import BaseModel, EmailStr
 
 
 ###discutir (abi)
 class UserOutput(BaseModel):
     usr_email: EmailStr
-
     class config:
         orm_mode = True
-    # usr_name: str
-
-    # usr_enabled: bool
-    
-    # @property
-    # def country_name(self):
-    #     return CountryModel.get(id=self.country_id).name
-    # def language_name(self):
-    #     return LanguageModel.get(id=self.language_id).name
 
 
 class UserLoginRequest(UserOutput):

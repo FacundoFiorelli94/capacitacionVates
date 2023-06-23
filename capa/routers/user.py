@@ -11,5 +11,8 @@ user_router = SQLAlchemyCRUDRouter(
     db=get_db,
     prefix="/user",
     tags=["User con crud router"],
-    create_route=False
+    create_route=False,
+    update_route=False,
+    get_one_route=False,
+    delete_one_route=False,
 )

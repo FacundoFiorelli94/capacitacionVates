@@ -15,14 +15,14 @@ class UserModel(Base):
   usr_language_id = Column(Integer, ForeignKey('language.language_id'))
   usr_enabled = Column(Boolean, default=False)
 
-  country = relationship("CountryModel", back_populates="user")
-  language = relationship("LanguageModel", back_populates="user")
+  country = relationship("CountryModel", back_populates="users")
+  language = relationship("LanguageModel", back_populates="users")
 
 class LanguageModel(Base):
   __tablename__ = 'language'
 
   language_id = Column(Integer, primary_key=True, index=True)
-  language_name = Column(Integer, unique=True)
+  language_name = Column(String, unique=True)
 
   users = relationship("UserModel", back_populates="language")
 
