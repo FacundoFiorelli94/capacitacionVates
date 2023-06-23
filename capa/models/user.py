@@ -1,10 +1,12 @@
 from db import Base
+from models.country import CountryModel
+from models.language import LanguageModel
 from sqlalchemy import Boolean, Column, ForeignKey, Integer, String
 from sqlalchemy.orm import relationship
 
 
 class UserModel(Base):
-  __tablename__ = 'users'
+  __tablename__ = 'user'
   usr_id = Column(Integer, primary_key=True, index=True)
   usr_email = Column(String, unique=True, index=True)
   usr_password = Column(String)
@@ -15,22 +17,22 @@ class UserModel(Base):
   usr_language_id = Column(Integer, ForeignKey('language.language_id'))
   usr_enabled = Column(Boolean, default=False)
 
-  country = relationship("CountryModel", back_populates="users")
-  language = relationship("LanguageModel", back_populates="users")
+  country = relationship("CountryModel", back_populates="user")
+  language = relationship("LanguageModel", back_populates="user")
 
-class LanguageModel(Base):
-  __tablename__ = 'language'
+# class LanguageModel(Base):
+#   __tablename__ = 'language'
 
-  language_id = Column(Integer, primary_key=True, index=True)
-  language_name = Column(String, unique=True)
+#   language_id = Column(Integer, primary_key=True, index=True)
+#   language_name = Column(String, unique=True)
 
-  user = relationship("UserModel", back_populates="language")
+#   user = relationship("UserModel", back_populates="language")
 
 
-class CountryModel(Base):
-  __tablename__ = 'country'
+# class CountryModel(Base):
+#   __tablename__ = 'country'
 
-  country_id = Column(Integer, primary_key=True, index=True)
-  country_name = Column(String, unique=True)
+#   country_id = Column(Integer, primary_key=True, index=True)
+#   country_name = Column(String, unique=True)
 
-  user = relationship("UserModel", back_populates="country")
+#   user = relationship("UserModel", back_populates="country")
