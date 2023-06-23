@@ -4,6 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from dotenv.main import load_dotenv
 import os
 
+
 # agreguen un archivo .env a la misma altura del .gitignore
 # agregen el .env al .gitignore
 # en el archivo .env tienen que poner lo siguiente: 

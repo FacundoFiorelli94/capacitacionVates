@@ -24,7 +24,7 @@ class LanguageModel(Base):
   language_id = Column(Integer, primary_key=True, index=True)
   language_name = Column(String, unique=True)
 
-  users = relationship("UserModel", back_populates="language")
+  user = relationship("UserModel", back_populates="language")
 
 
 class CountryModel(Base):
@@ -33,4 +33,4 @@ class CountryModel(Base):
   country_id = Column(Integer, primary_key=True, index=True)
   country_name = Column(String, unique=True)
 
-  users = relationship("UserModel", back_populates="country")
+  user = relationship("UserModel", back_populates="country")
