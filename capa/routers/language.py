@@ -6,8 +6,6 @@ from schemas.language import LanguageOutput, LanguageBase
 from models.user import LanguageModel
 from sqlalchemy.orm import Session
 
-
-
 language_router = SQLAlchemyCRUDRouter(
     schema=LanguageOutput,
     create_schema=LanguageBase,
@@ -16,5 +14,6 @@ language_router = SQLAlchemyCRUDRouter(
     prefix="/language",
     tags=["Language con crud router"],
     get_one_route=False,
-    update_route=False
+    update_route=False,
+    delete_all_route = False
 )

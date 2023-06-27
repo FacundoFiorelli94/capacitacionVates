@@ -20,14 +20,12 @@ user_router = SQLAlchemyCRUDRouter(
     delete_one_route=False,
 )
 
-# @user_router.get("/user/{country_name}", response_model=UserOutput)
-# async def get_user_by_country_name(country_name: str):
-#     country = country_name.upper()
-#     return await UserModel.filter(country__country_name=country).all()
 
-# @user_router.get("/user/{country_name}", response_model=UserOutput)
+#get by company con nombre country y nombre de lenguaje
+#get all con nombre country y nombre de lenguaje
+#put con inhabilitación de usuario
 
-# async def get_user_by_country(country_name: str,db: Annotated[Session, Depends(get_db)]):
+# async def get_user_by_country(country_name: str, db: Annotated[Session, Depends(get_db)]):
 #     country = country_name.upper()
 #     return db.query(UserModel).filter(CountryModel.country_name == country).all()
 
