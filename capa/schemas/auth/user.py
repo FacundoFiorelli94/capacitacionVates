@@ -35,5 +35,3 @@ class CreateUserRequest(UserLoginRequest):
   
   class config:
     orm_mode = True
-
-
