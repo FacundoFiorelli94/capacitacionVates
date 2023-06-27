@@ -1,9 +1,16 @@
+
 from pydantic import BaseModel, EmailStr
 
-class UserLoginRequest(BaseModel):
-    usr_email: EmailStr
-    usr_password: str
 
+class UserOutput(BaseModel):
+
+    usr_email: EmailStr
+    class config:
+        orm_mode = True
+
+
+class UserLoginRequest(UserOutput):
+  usr_password: str
 
 class CreateUserRequest(UserLoginRequest):    
   usr_address: str
@@ -12,10 +19,7 @@ class CreateUserRequest(UserLoginRequest):
   usr_country_id: int
   usr_language_id: int
   usr_enabled: bool = False  
+  usr_is_active: bool = True
   
   class config:
     orm_mode = True
-
-
-
-
