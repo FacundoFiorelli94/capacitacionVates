@@ -8,7 +8,7 @@ class UserOutput(BaseModel):
     usr_language_id: int
 
     class Config:
-        orm_mode = True
+      orm_mode = True
     
 
 class UserBase(UserOutput):
@@ -17,6 +17,7 @@ class UserBase(UserOutput):
   usr_zip: int
   usr_phone:int
   usr_enabled: bool = False
+  usr_is_active: bool = True
 
   class Config:
     orm_mode = True

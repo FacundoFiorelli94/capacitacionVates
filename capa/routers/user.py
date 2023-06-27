@@ -1,36 +1,53 @@
 from typing import Annotated
-
+from fastapi import APIRouter, Depends, HTTPException
 from db import get_db
-from fastapi import Depends
-from fastapi_crudrouter import SQLAlchemyCRUDRouter
-from models.user import CountryModel, LanguageModel, UserModel
-from schemas.auth.user import CreateUserRequest, UserOutput
+from models.user import UserModel, CountryModel, LanguageModel
+from schemas.user_crud import UserOutput
+from schemas.country import UserOutputCountry
+from schemas.language import UserOutputLanguage
 from sqlalchemy.orm import Session
 
-user_router = SQLAlchemyCRUDRouter(
-    schema=UserOutput,
-    create_schema=CreateUserRequest,
-    db_model=UserModel,
-    db=get_db,
-    prefix="/user",
-    tags=["User con crud router"],
-    create_route=False,
-    update_route=False,
-    get_one_route=False,
-    delete_one_route=False,
+
+user_router = APIRouter(
+  prefix='/user',
+  tags=['user'],
 )
 
 
-#get by company con nombre country y nombre de lenguaje
-#get all con nombre country y nombre de lenguaje
-#put con inhabilitación de usuario
+@user_router.get('/', status_code=200, response_model=list[UserOutput] )
+async def get_all_users(db: Annotated[Session, Depends(get_db)]):
+    users = db.query(UserModel).all()
+    if users is None:
+        raise HTTPException(status_code=404, detail="Users not found")
+    return users
 
-# async def get_user_by_country(country_name: str, db: Annotated[Session, Depends(get_db)]):
-#     country = country_name.upper()
-#     return db.query(UserModel).filter(CountryModel.country_name == country).all()
+@user_router.get('/country_name/{country_name}', status_code=200, response_model=list[UserOutputCountry])
+async def get_user_by_country(country_name: str, db: Annotated[Session, Depends(get_db)]):
+    if country_name is None:
+        raise HTTPException(status_code=404, detail="Country not found")
+    country_user = country_name.upper()
+    country = db.query(CountryModel).filter(CountryModel.country_name == country_user).first()
+    return db.query(UserModel).filter(UserModel.usr_country_id == country.country_id).all()
 
-# async def get_user_by_language(language: str,db: Annotated[Session, Depends(get_db)]):
-#     language = language.upper()
-#     return db.query(UserModel).filter(LanguageModel.language_name == language).all()
-    
+@user_router.get('/language_name/{language_name}', status_code=200, response_model=list[UserOutputLanguage])
+async def get_user_by_country(language_name: str, db: Annotated[Session, Depends(get_db)]):
+    if language_name is None:
+        raise HTTPException(status_code=404, detail="Language not found")
+    language_user = language_name.upper()
+    language = db.query(LanguageModel).filter(LanguageModel.language_name == language_user).first()
+    return db.query(UserModel).filter(UserModel.usr_language_id == language.language_id).all()
+
+
+
+@user_router.put('/logic_delete/{user_email}', status_code=200)
+async def logic_delete_user(user_email: str, db: Annotated[Session, Depends(get_db)]):
+    if user_email is None:
+        raise HTTPException(status_code=404, detail="User not found")
+    user = db.query(UserModel).filter(UserModel.usr_email == user_email).first()
+    user.usr_is_active = False
+    db.commit()
+    return "El usuario ha sido eliminado logicamente"
+
+
+
 

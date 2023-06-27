@@ -14,5 +14,6 @@ country_router = SQLAlchemyCRUDRouter(
     prefix="/country",
     tags=["Country con crud router"],
     get_one_route=False,
-    update_route=False
+    update_route=False,
+    delete_all_route = False
 )
