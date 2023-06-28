@@ -9,7 +9,7 @@ from fastapi import APIRouter, Depends, HTTPException, Response, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
 from pydantic.typing import Annotated
 from schemas.auth.Token import Token
-from schemas.auth.user import CreateUserRequest
+from schemas.auth.user import UserOutput, UserCreate
 from services.auth import (authenticate_user, create_access_token, create_user,
                            get_current_user)
 from sqlalchemy.orm import Session
@@ -24,8 +24,8 @@ user_dependency = Annotated[ dict, Depends(get_current_user)]
 oauhh2_bearer = OAuth2PasswordBearer(tokenUrl='/auth/login')
 
 
-@auth_router.post('/register', response_model=CreateUserRequest, response_model_exclude=['usr_password'], status_code=status.HTTP_201_CREATED)
-async def register(user: CreateUserRequest, db: db_dependency):
+@auth_router.post('/register', response_model=UserOutput, status_code=status.HTTP_201_CREATED)
+async def register(user: UserCreate, db: db_dependency):
   await create_user(db, user) 
   return user
 

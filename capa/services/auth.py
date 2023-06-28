@@ -1,7 +1,7 @@
 from datetime import timedelta, datetime
 from urllib.parse import urlencode
 from fastapi import HTTPException, status, Depends
-from schemas.auth.user import CreateUserRequest
+from schemas.auth.user import UserCreate
 from sqlalchemy.orm import Session
 from sqlalchemy import update
 from models.user import UserModel
@@ -14,7 +14,7 @@ from typing import List
 from pydantic import EmailStr, BaseModel
 
 ''' CREATE USER '''
-async def create_user(db: Session, user: CreateUserRequest):
+async def create_user(db: Session, user: UserCreate):
   usr_email = db.query(UserModel).filter(UserModel.usr_email == user.usr_email).first() 
 
   if usr_email:
