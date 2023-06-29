@@ -1,13 +1,4 @@
 from datetime import timedelta
-<<<<<<< HEAD:capa/routers/auth.py
-
-=======
-from fastapi import APIRouter, Depends, HTTPException, Response, status
-from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
-from pydantic.typing import Annotated
-from services.auth import verify_usr_email
-from services.auth import create_access_token, get_current_user
->>>>>>> main:capa/routes/auth.py
 from db import get_db
 from fastapi import APIRouter, Depends, HTTPException, Response, status
 from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
