@@ -1,12 +1,12 @@
 from pydantic import BaseModel
 
 
-class LanguageBase(BaseModel):
-    language_id: int
-
-
-class LanguageOutput(LanguageBase):
+class LanguageCreate(BaseModel):
     language_name: str
+
+
+class Language(LanguageCreate):
+    language_id: int
 
     class Config:
         orm_mode = True
