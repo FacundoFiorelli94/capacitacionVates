@@ -1,13 +1,9 @@
 from db import create_tables
-<<<<<<< HEAD
 from fastapi import FastAPI
-from routers.auth import auth_router
-from routers.user import user_router
-from routers.country import country_router
-from routers.language import language_router
-=======
 from routes.auth import auth_router
->>>>>>> main
+from routes.user import user_router
+from routes.country import country_router
+from routes.language import language_router
 
 app = FastAPI()
 
