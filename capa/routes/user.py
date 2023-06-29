@@ -14,7 +14,7 @@ user_router = APIRouter(
 )
 
 
-@user_router.get('/get_users', status_code=200, response_model=list[UserOutput] )
+@user_router.get('/get_users_lineal', status_code=200, response_model=list[UserOutput], deprecated=True )
 async def get_all_users(db: Annotated[Session, Depends(get_db)], country_name: str = None, language_name: str = None):
     if country_name is not None:
         country_user = country_name.upper()
@@ -38,6 +38,21 @@ async def get_all_users(db: Annotated[Session, Depends(get_db)], country_name: s
 
     return users
 
+
+#-----Version simplificada-------
+@user_router.get('/get_users_logico', status_code=200, response_model=list[UserOutput])
+async def get_all_users(db: Session = Depends(get_db), country_name: str = None, language_name: str = None):
+    query = db.query(UserModel)
+    
+    if country_name:
+        query = query.join(CountryModel).filter(CountryModel.country_name == country_name.upper())
+    
+    if language_name:
+        query = query.join(LanguageModel).filter(LanguageModel.language_name == language_name.upper())
+    
+    users = query.all()
+    return users
+#--------------------------------
 
 @user_router.get('/country_name/{country_name}', status_code=200, response_model=list[UserOutputCountry], deprecated=True)
 async def get_user_by_country(country_name: str, db: Annotated[Session, Depends(get_db)]):
