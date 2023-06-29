@@ -1,15 +1,14 @@
 from pydantic import BaseModel
 
-
-class CountryBase(BaseModel):
-    country_id: int
-
-
-class CountryOutput(CountryBase):
+class CountryCreate(BaseModel):
     country_name: str
+
+class Country(CountryCreate):
+    country_id: int
 
     class Config:
         orm_mode = True
+
 
 class UserOutputCountry(BaseModel):
     usr_email: str
