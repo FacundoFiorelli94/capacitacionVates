@@ -2,5 +2,6 @@ envCapa/
 venv/
 .env
 envV/
-capaVates/
-__pycache__
+__pycache__/
+*.pyc
+.vscode/

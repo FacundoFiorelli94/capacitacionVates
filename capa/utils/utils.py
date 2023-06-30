@@ -3,9 +3,9 @@ from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from typing import Annotated
 from urllib.parse import urlencode
+
 from passlib.context import CryptContext
 from schemas.auth import Token
-
 
 '''' HASHING PASSWORD WITH BCRYPT '''
 # Create a global object of CryptContext
