@@ -2,13 +2,13 @@ from typing import Annotated
 from db import get_db
 from fastapi import Depends
 from fastapi_crudrouter import SQLAlchemyCRUDRouter
-from schemas.language import LanguageOutput, LanguageBase
+from schemas.language import Language, LanguageCreate
 from models.user import LanguageModel
 from sqlalchemy.orm import Session
 
 language_router = SQLAlchemyCRUDRouter(
-    schema=LanguageOutput,
-    create_schema=LanguageBase,
+    schema=Language,
+    create_schema=LanguageCreate,
     db_model=LanguageModel,
     db=get_db,
     prefix="/language",
