@@ -6,7 +6,7 @@ from pydantic.typing import Annotated
 from schemas.auth.Token import Token
 from schemas.auth.user import CreateUserRequest
 from services.auth import (authenticate_user, create_access_token, create_user,
-                           get_current_user)
+                           get_current_user, verify_usr_email)
 from sqlalchemy.orm import Session
 
 auth_router = APIRouter(
