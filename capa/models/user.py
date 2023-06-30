@@ -11,7 +11,7 @@ class UserModel(Base):
   usr_email = Column(String, unique=True, index=True)
   usr_password = Column(String)
   usr_address = Column(String)
-  usr_zip = Column(String)
+  usr_zip = Column(Integer)
   usr_phone = Column(String)
   usr_country_id = Column(Integer, ForeignKey('country.country_id'))
   usr_language_id = Column(Integer, ForeignKey('language.language_id'))
