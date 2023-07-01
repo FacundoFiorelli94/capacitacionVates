@@ -1,15 +1,15 @@
-from pydantic import BaseModel
+from pydantic import BaseModel,Field
 
 
-class CountryBase(BaseModel):
+class CountryCreate(BaseModel):
+    country_name: str = Field(regex=r"^[a-zA-Z]+(?:\\s[a-zA-Z]+)*$", max_length=20)
+
+class Country(CountryCreate):
     country_id: int
-
-
-class CountryOutput(CountryBase):
-    country_name: str
 
     class Config:
         orm_mode = True
+
 
 class UserOutputCountry(BaseModel):
     usr_email: str

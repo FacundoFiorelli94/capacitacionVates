@@ -1,12 +1,12 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
-class LanguageBase(BaseModel):
+class LanguageCreate(BaseModel):
+    language_name: str = Field(regex=r"^[a-zA-Z]+(?:\\s[a-zA-Z]+)*$", max_length=20)
+
+
+class Language(LanguageCreate):
     language_id: int
-
-
-class LanguageOutput(LanguageBase):
-    language_name: str
 
     class Config:
         orm_mode = True
