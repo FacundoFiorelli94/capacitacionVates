@@ -2,21 +2,21 @@ from pydantic import BaseModel, Field
 
 
 class LanguageCreate(BaseModel):
-    language_name: str  = Field(regex=r"^[a-zA-Z]+(?:\\s[a-zA-Z]+)*$", max_length=20)
+  language_name: str  = Field(regex=r"^[a-zA-Z]+(?:\\s[a-zA-Z]+)*$", max_length=20)
 
 
 class Language(LanguageCreate):
-    language_id: int
+  language_id: int
 
-    class Config:
-        orm_mode = True
+  class Config:
+    orm_mode = True
 
 class UserOutputLanguage(BaseModel):
-    usr_email: str
-    usr_language_id: int
+  usr_email: str
+  usr_language_id: int
 
-    class Config:
-        orm_mode = True
+  class Config:
+    orm_mode = True
     
 
 class UserBaseLanguage(UserOutputLanguage):

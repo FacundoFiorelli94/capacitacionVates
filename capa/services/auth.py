@@ -1,5 +1,4 @@
 from datetime import timedelta, datetime
-from urllib.parse import urlencode
 from fastapi import HTTPException, status, Depends
 from schemas.auth.user import UserCreate
 from sqlalchemy.orm import Session
@@ -10,8 +9,6 @@ from jose import jwt, JWTError
 from fastapi.security import OAuth2PasswordBearer
 from pydantic.typing import Annotated
 from fastapi_mail import FastMail, MessageSchema, ConnectionConfig
-from typing import List
-from pydantic import EmailStr, BaseModel
 
 ''' CREATE USER '''
 async def create_user(db: Session, user: UserCreate):
@@ -32,10 +29,13 @@ async def create_user(db: Session, user: UserCreate):
   db.refresh(db_user)
   
   token = create_access_token(
-      db_user.usr_email, db_user.usr_id, timedelta(minutes=25)
+    db_user.usr_email, 
+    db_user.usr_id, 
+    timedelta(minutes=25)
   )
   
   await send_email(token, user.usr_email)
+  return db_user
 ''' END CREATE USER'''
 
 
@@ -153,6 +153,7 @@ async def send_email(token: str, usr_email: str):
   )
   
   verification_url = f"http://localhost:8000/auth/verify_email/{token}"
+  
   template = f"""
     <html>
       <body>
