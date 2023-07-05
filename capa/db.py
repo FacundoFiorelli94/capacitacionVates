@@ -10,7 +10,7 @@ user_postgres=os.environ['USER_POSTGRES']
 pass_postgres=os.environ['PASS_POSTGRES']
 
 
-SQLALCHEMY_DATABASE_URL = f"postgresql://{user_postgres}:{pass_postgres}@localhost:5432/capa"
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres@localhost:5432/capa"
 
 engine = create_engine( SQLALCHEMY_DATABASE_URL )
 
